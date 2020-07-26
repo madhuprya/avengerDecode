@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 const avengerCrud = require("../models/avenger");
 
-router.get("/:numberString", (req, res) => {
-  const { numberString } = req.params;
-  let avenger = avengerCrud.getAvenger(numberString);
-  res.json(avenger);
+router.get("/:avengerCode", (req, res) => {
+  const { avengerCode } = req.params;
+  let response = avengerCrud.getAvenger(avengerCode);
+  res.send(response);
 });
 
 router.get("/", (req, res) => {

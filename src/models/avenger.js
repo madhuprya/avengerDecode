@@ -31,11 +31,14 @@ let avengerList = [
   "BLACKWIDOW",
   "HELLBOY",
   "PUNISHER",
+  "MAD",
 ];
 
 function combination(keypadMap, index, phone, str, avengerList) {
   if (index === phone.length) {
-    if (avengerList && avengerList.includes(str)) avenger = str;
+    if (avengerList && avengerList.includes(str)) {
+      avenger = str;
+    }
   } else {
     let string = keypadMap.get(phone.charAt(index));
     for (let j = 0; j < string.length; j++) {
@@ -44,7 +47,6 @@ function combination(keypadMap, index, phone, str, avengerList) {
       str = str.replace(str.charAt(str.length - 1), "");
     }
   }
-  return avenger;
 }
 
 const avengerCrud = {
@@ -52,8 +54,14 @@ const avengerCrud = {
     return avengerList;
   },
   getAvenger: (numberString) => {
-    let avenger = combination(keypadMap, 0, numberString, str, avengerList);
-    return avenger;
+    avenger = null;
+    combination(keypadMap, 0, numberString, str, avengerList);
+    return {
+      error: false,
+      response: { avenger: avenger ? avenger : "Not Available" },
+      status: 200,
+      msg: avenger ? "data fetched successfully" : "Not Available",
+    };
   },
 };
 
